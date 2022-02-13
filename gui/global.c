@@ -38,6 +38,63 @@
 #include "opcodes.h"
 
 /**
+ * op_version - Show the NeoMutt version number - Implements ::global_function_t - @ingroup global_function_api
+ */
+static int op_version(int op)
+{
+  mutt_message(mutt_make_version());
+  return IR_SUCCESS;
+}
+
+/**
+ * op_what_key - display the keycode for a key press - Implements ::global_function_t - @ingroup global_function_api
+ */
+static int op_what_key(int op)
+{
+  mutt_what_key();
+  return IR_SUCCESS;
+}
+
+/**
+ * GlobalFunctions - All the NeoMutt functions that the Global supports
+ */
+struct GlobalFunction GlobalFunctions[] = {
+  // clang-format off
+  { OP_VERSION,               op_version },
+  { OP_WHAT_KEY,              op_what_key },
+  { 0, NULL },
+  // clang-format on
+};
+
+/**
+ * global_function_dispatcher - Perform a Global function
+ * @param win Window
+ * @param op  Operation to perform, e.g. OP_VERSION
+ * @retval num #IndexRetval, e.g. #IR_SUCCESS
+ */
+int global_function_dispatcher(struct MuttWindow *win, int op)
+{
+  int rc = IR_UNKNOWN;
+  for (size_t i = 0; GlobalFunctions[i].op != OP_NULL; i++)
+  {
+    const struct GlobalFunction *fn = &GlobalFunctions[i];
+    if (fn->op == op)
+    {
+      rc = fn->function(op);
+      break;
+    }
+  }
+
+  if (rc == IR_UNKNOWN) // Not our function
+    return rc;
+
+  const char *result = mutt_map_get_name(rc, RetvalNames);
+  mutt_debug(LL_DEBUG1, "Handled %s (%d) -> %s\n", OpStrings[op][0], op, NONULL(result));
+
+  return IR_SUCCESS; // Whatever the outcome, we handled it
+}
+
+/**
  * traverse_tree - Traverse a tree of Windows to find function to handle an operation
  * @param win    Window to start at
  * @param ignore Child Window to ignore

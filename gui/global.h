@@ -25,6 +25,28 @@
 
 struct MuttWindow;
 
+/**
+ * @defgroup global_function_api Global Function API
+ *
+ * Prototype for a Global Function
+ *
+ * @param op Operation to perform, e.g. OP_VERSION
+ * @retval enum #IndexRetval
+ */
+typedef int (*global_function_t)(int op);
+
+/**
+ * struct GlobalFunction - A NeoMutt function
+ */
+struct GlobalFunction
+{
+  int op;                     ///< Op code, e.g. OP_GLOBAL_NEXT
+  global_function_t function; ///< Function to call
+};
+
+extern struct GlobalFunction GlobalFunctions[];
+
+int global_function_dispatcher(struct MuttWindow *win, int op);
 int window_dispatch_function  (struct MuttWindow *win, int op);
 
 #endif /* MUTT_GLOBAL_FUNCTIONS_H */

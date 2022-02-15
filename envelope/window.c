@@ -47,15 +47,15 @@
  *
  * Once constructed, it is controlled by the following events:
  *
- * | Event Type            | Handler                |
- * | :-------------------- | :--------------------- |
- * | #NT_COLOR             | env_color_observer()   |
- * | #NT_CONFIG            | env_config_observer()  |
- * | #NT_EMAIL             | env_email_observer()   |
- * | #NT_HEADER            | env_header_observer()  |
- * | #NT_WINDOW            | env_window_observer()  |
- * | MuttWindow::recalc()  | env_recalc()           |
- * | MuttWindow::repaint() | env_repaint()          |
+ * | Event Type               | Handler                |
+ * | :----------------------- | :--------------------- |
+ * | #NT_COLOR                | env_color_observer()   |
+ * | #NT_CONFIG               | env_config_observer()  |
+ * | #NT_EMAIL (#NT_ENVELOPE) | env_email_observer()   |
+ * | #NT_HEADER               | env_header_observer()  |
+ * | #NT_WINDOW               | env_window_observer()  |
+ * | MuttWindow::recalc()     | env_recalc()           |
+ * | MuttWindow::repaint()    | env_repaint()          |
  */
 
 #include "config.h"

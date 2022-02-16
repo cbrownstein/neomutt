@@ -836,13 +836,8 @@ int mutt_pager(struct PagerView *pview)
 
     int rc = pager_function_dispatcher(priv->pview->win_pager, op);
 
-#ifdef USE_SIDEBAR
     if (rc == IR_UNKNOWN)
-    {
-      struct MuttWindow *win_sidebar = window_find_child(dlg, WT_SIDEBAR);
-      rc = sb_function_dispatcher(win_sidebar, op);
-    }
-#endif
+      rc = window_dispatch_function(priv->pview->win_pager, op);
 
     if (rc == IR_DONE)
       break;

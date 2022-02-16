@@ -1343,13 +1343,8 @@ struct Mailbox *mutt_index_menu(struct MuttWindow *dlg, struct Mailbox *m_init)
 
     int rc = index_function_dispatcher(priv->win_index, op);
 
-#ifdef USE_SIDEBAR
     if (rc == IR_UNKNOWN)
-    {
-      struct MuttWindow *win_sidebar = window_find_child(dlg, WT_SIDEBAR);
-      rc = sb_function_dispatcher(win_sidebar, op);
-    }
-#endif
+      rc = window_dispatch_function(priv->win_index, op);
 
     if (rc == IR_CONTINUE)
     {

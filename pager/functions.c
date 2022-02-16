@@ -1671,15 +1671,6 @@ static int op_undelete_thread(struct IndexSharedData *shared,
 }
 
 /**
- * op_version - Show the NeoMutt version number and date - Implements ::pager_function_t - @ingroup pager_function_api
- */
-static int op_version(struct IndexSharedData *shared, struct PagerPrivateData *priv, int op)
-{
-  mutt_message(mutt_make_version());
-  return IR_SUCCESS;
-}
-
-/**
  * op_view_attachments - Show MIME attachments - Implements ::pager_function_t - @ingroup pager_function_api
  */
 static int op_view_attachments(struct IndexSharedData *shared,
@@ -1700,15 +1691,6 @@ static int op_view_attachments(struct IndexSharedData *shared,
   if (shared->email->attach_del)
     shared->mailbox->changed = true;
   pager_queue_redraw(priv, MENU_REDRAW_FULL);
-  return IR_SUCCESS;
-}
-
-/**
- * op_what_key - Display the keycode for a key press - Implements ::pager_function_t - @ingroup pager_function_api
- */
-static int op_what_key(struct IndexSharedData *shared, struct PagerPrivateData *priv, int op)
-{
-  mutt_what_key();
   return IR_SUCCESS;
 }
 
@@ -1912,9 +1894,7 @@ struct PagerFunction PagerFunctions[] = {
   { OP_UNDELETE,               op_undelete },
   { OP_UNDELETE_SUBTHREAD,     op_undelete_thread },
   { OP_UNDELETE_THREAD,        op_undelete_thread },
-  { OP_VERSION,                op_version },
   { OP_VIEW_ATTACHMENTS,       op_view_attachments },
-  { OP_WHAT_KEY,               op_what_key },
   { 0, NULL },
   // clang-format on
 };

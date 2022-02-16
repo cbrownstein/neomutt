@@ -436,6 +436,10 @@ int mutt_compose_menu(struct Email *e, struct Buffer *fcc, uint8_t flags,
       mutt_debug(LL_DEBUG1, "Got op %s (%d)\n", OpStrings[op][0], op);
 
     int rc = compose_function_dispatcher(dlg, op);
+
+    if (rc == IR_UNKNOWN)
+      rc = window_dispatch_function(dlg, op);
+
     if (rc == IR_DONE)
       break;
   }

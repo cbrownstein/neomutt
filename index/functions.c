@@ -2467,15 +2467,6 @@ static int op_undelete_thread(struct IndexSharedData *shared,
 }
 
 /**
- * op_version - Show the NeoMutt version number and date - Implements ::index_function_t - @ingroup index_function_api
- */
-static int op_version(struct IndexSharedData *shared, struct IndexPrivateData *priv, int op)
-{
-  mutt_message(mutt_make_version());
-  return IR_SUCCESS;
-}
-
-/**
  * op_view_attachments - Show MIME attachments - Implements ::index_function_t - @ingroup index_function_api
  */
 static int op_view_attachments(struct IndexSharedData *shared,
@@ -2498,15 +2489,6 @@ static int op_view_attachments(struct IndexSharedData *shared,
   }
   menu_queue_redraw(priv->menu, MENU_REDRAW_FULL);
   return rc;
-}
-
-/**
- * op_what_key - Display the keycode for a key press - Implements ::index_function_t - @ingroup index_function_api
- */
-static int op_what_key(struct IndexSharedData *shared, struct IndexPrivateData *priv, int op)
-{
-  mutt_what_key();
-  return IR_SUCCESS;
 }
 
 // -----------------------------------------------------------------------------
@@ -3305,10 +3287,8 @@ struct IndexFunction IndexFunctions[] = {
   { OP_UNDELETE,                            op_undelete,                          CHECK_IN_MAILBOX | CHECK_MSGCOUNT | CHECK_READONLY | CHECK_VISIBLE },
   { OP_UNDELETE_SUBTHREAD,                  op_undelete_thread,                   CHECK_IN_MAILBOX | CHECK_MSGCOUNT | CHECK_READONLY | CHECK_VISIBLE },
   { OP_UNDELETE_THREAD,                     op_undelete_thread,                   CHECK_IN_MAILBOX | CHECK_MSGCOUNT | CHECK_READONLY | CHECK_VISIBLE },
-  { OP_VERSION,                             op_version,                           CHECK_NO_FLAGS },
   { OP_VIEW_ATTACHMENTS,                    op_view_attachments,                  CHECK_IN_MAILBOX | CHECK_MSGCOUNT | CHECK_VISIBLE },
   { OP_VIEW_RAW_MESSAGE,                    op_edit_raw_message,                  CHECK_ATTACH | CHECK_IN_MAILBOX | CHECK_MSGCOUNT | CHECK_VISIBLE },
-  { OP_WHAT_KEY,                            op_what_key,                          CHECK_NO_FLAGS },
 #ifdef USE_AUTOCRYPT
   { OP_AUTOCRYPT_ACCT_MENU,                 op_autocrypt_acct_menu,               CHECK_NO_FLAGS },
 #endif

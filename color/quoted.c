@@ -45,7 +45,7 @@ int NumQuotedColors; ///< Number of colours for quoted email text
  */
 int find_highest_used(void)
 {
-  for (size_t i = COLOR_QUOTES_MAX - 1; i >= 0; i--)
+  for (int i = COLOR_QUOTES_MAX - 1; i >= 0; i--)
   {
     if (attr_color_is_set(&QuotedColors[i]))
       return i + 1;
